@@ -97,14 +97,14 @@ static const timer_conf_t timer_config[] = {
         .rcc_mask = RCC_APB1ENR_TIM3EN,
         .bus      = APB1,
         .irqn     = TIM3_IRQn
-    },
+    }/*,
     {
         .dev      = TIM4,
         .max      = 0x0000ffff,
         .rcc_mask = RCC_APB1ENR_TIM4EN,
         .bus      = APB1,
         .irqn     = TIM4_IRQn
-    }
+    }*/
 };
 
 #define TIMER_0_ISR         isr_tim2
@@ -200,6 +200,15 @@ static const pwm_conf_t pwm_config[] = {
                       { .pin = GPIO_PIN(PORT_A, 11), .cc_chan = 3 } },
         .af       = GPIO_AF_OUT_PP,
         .bus      = APB2
+    }, {
+        .dev      = TIM4,
+        .rcc_mask = RCC_APB1ENR_TIM4EN,
+        .chan     = { { .pin = GPIO_PIN(PORT_B, 6), .cc_chan = 0 },
+                      { .pin = GPIO_PIN(PORT_B, 7), .cc_chan = 1 },
+                      { .pin = GPIO_PIN(PORT_B, 8), .cc_chan = 2 },
+                      { .pin = GPIO_PIN(PORT_B, 9), .cc_chan = 3 } },
+        .af       = GPIO_AF_OUT_PP,
+        .bus      = APB1
     }
 };
 
