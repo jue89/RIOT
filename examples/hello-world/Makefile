@@ -12,6 +12,10 @@ RIOTBASE ?= $(CURDIR)/../..
 # development process:
 DEVELHELP ?= 1
 
+USEMODULE += ztimer_usec
+USEMODULE += ztimer_msec
+USEMODULE += ztimer_periph_rtt
+
 # Change this to 0 show compiler invocation lines by default:
 QUIET ?= 1
 

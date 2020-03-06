@@ -20,13 +20,29 @@
  */
 
 #include <stdio.h>
+#include "ztimer.h"
+
+void cb (void * ctx) {
+    (void) ctx;
+    puts("CB!");
+}
 
 int main(void)
 {
+    ztimer_t timer = {.callback = cb};
+
     puts("Hello World!");
 
     printf("You are running RIOT on a(n) %s board.\n", RIOT_BOARD);
     printf("This board features a(n) %s MCU.\n", RIOT_MCU);
+
+    while (true) {
+        puts("Zzzzz...");
+        ztimer_sleep(ZTIMER_MSEC, 3000);
+        puts("Good morning");
+        ztimer_set(ZTIMER_USEC, &timer, 1000000);
+        ztimer_sleep(ZTIMER_USEC, 500000);
+    }
 
     return 0;
 }
