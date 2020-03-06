@@ -41,6 +41,10 @@ static void _ztimer_periph_timer_set(ztimer_clock_t *clock, uint32_t val)
     unsigned state = irq_disable();
 #endif
     timer_set(ztimer_periph->dev, 0, val);
+    if (!ztimer_periph->active) {
+        ztimer_periph->active = true;
+        puts("ENABLE");
+    }
 #ifdef PERIPH_TIMER_PROVIDES_SET
     irq_restore(state);
 #endif
@@ -58,6 +62,8 @@ static void _ztimer_periph_timer_cancel(ztimer_clock_t *clock)
     ztimer_periph_timer_t *ztimer_periph = (ztimer_periph_timer_t *)clock;
 
     timer_clear(ztimer_periph->dev, 0);
+    ztimer_periph->active = false;
+    puts("DISABLE");
 }
 
 static void _ztimer_periph_timer_callback(void *arg, int channel)
@@ -78,5 +84,6 @@ void ztimer_periph_timer_init(ztimer_periph_timer_t *clock, tim_t dev, unsigned 
     clock->dev = dev;
     clock->super.ops = &_ztimer_periph_timer_ops;
     clock->super.max_value = max_val;
+    clock->active = false;
     timer_init(dev, freq, _ztimer_periph_timer_callback, clock);
 }
