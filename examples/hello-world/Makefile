@@ -19,4 +19,6 @@ USEMODULE += ztimer_periph_rtt
 # Change this to 0 show compiler invocation lines by default:
 QUIET ?= 1
 
+CFLAGS+='-DCONFIG_ZTIMER_PERIPH_TIMER_PM_LAYER=1'
+
 include $(RIOTBASE)/Makefile.include

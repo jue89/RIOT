@@ -21,6 +21,7 @@
 
 #include <stdio.h>
 #include "ztimer.h"
+#include "pm_layered.h"
 
 void cb (void * ctx) {
     (void) ctx;
@@ -35,6 +36,10 @@ int main(void)
 
     printf("You are running RIOT on a(n) %s board.\n", RIOT_BOARD);
     printf("This board features a(n) %s MCU.\n", RIOT_MCU);
+
+    pm_unblock(1);
+    pm_unblock(2);
+    pm_unblock(3);
 
     while (true) {
         puts("Zzzzz...");
